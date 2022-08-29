@@ -5,7 +5,9 @@
 
 using namespace std;
 
-double f_y(double x, double w_i, double t){
+
+//ecuación diferencial matemática. 
+/*double f_y(double x, double w_i, double t){
     return( -(1./8.)*t);
 }
 
@@ -15,8 +17,38 @@ double f_yp(double x, double w_i, double t){
 
 double f(double x, double w_i, double t){
     return (1./8.)*( 32 + pow(x,3) - (w_i)*t );
+}*/
+
+//ecuaciones del péndulo simple no lineales. 
+const float g=9.8;
+const float l=1;
+double f_y(double x, double w_i, double t){
+    return( -(g/l)*cos(x) );
 }
 
+double f_yp(double x, double w_i, double t){
+    return 0;
+}
+
+double f(double x, double w_i, double t){
+    return (-(g/l)*sin(x) );
+}
+
+//ecuación diferencial de la viga 
+const float g=9.8;
+const float l=1;
+double f_y(double x, double w_i, double t){
+    return( -(g/l)*cos(x) );
+}
+
+double f_yp(double x, double w_i, double t){
+    return 0;
+}
+
+double f(double x, double w_i, double t){
+    return (-(g/l)*sin(x) );
+}
+///////////////////////////////////////////////////////// se define el método. 
 vector<vector<double>> dif_fin_nl(
         double a,
         double b,
@@ -132,7 +164,7 @@ vector<vector<double>> dif_fin_nl(
 
 int main() {
     vector<vector<double>> respuestas;
-    respuestas = dif_fin_nl(1,3,17,43./3.,19,100000, 1e-8);
+    respuestas = dif_fin_nl(1,3,17,43./3.,19,100000, 1e-8); //a, b, alpha, beta, N, M, tol.
 
     cout << respuestas[0].size() << endl;
     cout << respuestas[1].size() << endl;
