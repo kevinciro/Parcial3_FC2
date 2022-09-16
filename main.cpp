@@ -3,6 +3,7 @@
 #include <cmath>
 #include <fstream>
 #include <list>
+#include <fstream> // flujo de archivo
 
 
 using namespace std;
@@ -214,6 +215,14 @@ vector<vector<double>> dif_fin_nl(
 
 int main() {
     const double PI = 3.1416;
+
+    ofstream archivo;
+	
+   archivo.open("programa.txt",ios::out); //le indicamos que queremos añadir texto
+   if(archivo.fail()){
+			cout<<"No se pudo abrir el archivo"<<endl;
+			exit(1);
+	}
     try{
         vector<vector<double>> respuestas;
 //        double a = 0;
@@ -236,18 +245,20 @@ int main() {
 
         respuestas = dif_fin_nl(1, 2, 0, log(256),50,100000, 1e-12); //a, b, alpha, beta, N, M, tol.
 
-        for ( double x: respuestas[0]){
-            cout << x << ", ";
+        for ( int i=0; i<respuestas[0].size(); i++ ){
+            archivo << respuestas[0][i] << " " << respuestas[1][i] << endl;
         }
-        cout << endl;
+//        cout << endl;
 
-        for ( double w: respuestas[1]){
-            cout << w << ", ";
-        }
+//        for ( double w: respuestas[1]){
+//            cout << w << ", ";
+//        }
         cout << endl;
     }catch (const char* msg){
         std::cout<< msg << std::endl;
     }
+    
+    archivo.close();
 
     return 0;
 }
